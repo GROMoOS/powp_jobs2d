@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.drivers.adapter.CustomLineDrawerDriver;
 import edu.kis.powp.jobs2d.drivers.adapter.DrawerDriver;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
@@ -36,8 +38,11 @@ public class TestJobs2dPatterns {
 		DriverFeature.addDriver("Logger Driver", loggerDriver);
 		DriverFeature.getDriverManager().setCurrentDriver(loggerDriver);
 
-		Job2dDriver testDriver = new DrawerDriver(DrawerFeature.getDrawerController());
-		DriverFeature.addDriver("Drawer Driver", testDriver);
+		Job2dDriver baseDrawerDriver = new DrawerDriver(DrawerFeature.getDrawerController());
+		DriverFeature.addDriver("Drawer Driver", baseDrawerDriver);
+
+		Job2dDriver specialLineDrawerDriver = new CustomLineDrawerDriver(DrawerFeature.getDrawerController(), LineFactory.getSpecialLine());
+		DriverFeature.addDriver("Special Line Drawer Driver", specialLineDrawerDriver);
 
 		DriverFeature.updateDriverInfo();
 	}
